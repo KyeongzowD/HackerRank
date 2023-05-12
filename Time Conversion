@@ -1,0 +1,59 @@
+/* 에러1 : 문자열의 비교는 s.equals()을 사용해야 함 '=='과 혼동 X */
+/* 에러2 : 12+12일 경우 24가 되어서 0으로 변환해줘야하는데 숫자를 문자열로 변환하면 00이 아닌 0으로 출력되어서 문자열 00으로 변환해줘야 함 */
+/* 에러3 : 12시 am은 24시간제일 때 0시가 되고 12시 pm은 12시가 된다. 문제에 적혀있으니 문제 꼼꼼하게 읽어야함 */
+
+
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.regex.*;
+
+class Result {
+
+    /*
+     * Complete the 'timeConversion' function below.
+     *
+     * The function is expected to return a STRING.
+     * The function accepts STRING s as parameter.
+     */
+
+    public static String timeConversion(String s) {
+    // Write your code here
+        if(s.substring(8).equals("PM")){
+            int hour=Integer.parseInt(s.substring(0,2))+12;
+            if(hour==24){
+                s="12"+s.substring(2,8);
+            }else{
+                s=Integer.toString(hour)+s.substring(2,8);
+            }
+        }else{
+            if(Integer.parseInt(s.substring(0,2))==12){
+                s="00"+s.substring(2,8);
+            }else{
+                s=s.substring(0,8);
+            }
+        }
+        return s;
+    }
+
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        String s = bufferedReader.readLine();
+
+        String result = Result.timeConversion(s);
+
+        bufferedWriter.write(result);
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
