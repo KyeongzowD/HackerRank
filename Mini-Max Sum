@@ -1,3 +1,5 @@
+/* 에러 : int형의 합이 long이 될 수 있으므로 되도록 사용자 생성 변수는 long형 사용하기 */
+
 import java.io.*;
 import java.math.*;
 import java.security.*;
