@@ -68,3 +68,78 @@ public class Solution {
     }
 }
  
+
+/* 출력 속도를 높이기 위해 버퍼를 사용함 */
+/* 테스트 케이스가 2개 이상일 경우 출력이 적게 나옴 */
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+class Result {
+
+    /*
+     * Complete the 'minimumBribes' function below.
+     *
+     * The function accepts INTEGER_ARRAY q as parameter.
+     */
+
+    public static void minimumBribes(List<Integer> q) throws IOException {
+    // Write your code here
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out)); 
+        int ans=0;
+        int val=0;
+        for(int i=0;i<q.size()-1;i++){
+            val=0;
+            for(int j=i+1;j<q.size();j++){
+                if(q.get(i)>q.get(j)){
+                    val++;
+                }                
+            }
+            if(val>2){
+                bw.write("Too chaotic\n");
+                bw.flush();
+                bw.close();
+                return;
+            }else{
+                ans+=val;
+            }
+        }
+        bw.write(ans+"\n");
+        bw.flush();
+        bw.close();
+    }
+
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+        int t = Integer.parseInt(bufferedReader.readLine().trim());
+
+        IntStream.range(0, t).forEach(tItr -> {
+            try {
+                int n = Integer.parseInt(bufferedReader.readLine().trim());
+
+                List<Integer> q = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+                    .map(Integer::parseInt)
+                    .collect(toList());
+
+                Result.minimumBribes(q);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        bufferedReader.close();
+    }
+}
+ 
